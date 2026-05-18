@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Carrito - UNDETIX</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="style/style.css">
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</head>
+<body>
+
+    <div id="header-container"></div>
+
+    <main id="main-content">
+        <div class="cart-wrapper">
+            <h1 class="cart-header">My shopping bag</h1>
+
+            <div class="cart-list" role="list" aria-label="Productos en el carrito">
+
+                <div class="cart-item" role="listitem">
+                    <div class="cart-item-img">
+                        <img src="imagenes/pantalon.jpg" alt="Pantalón de pana blanco">
+                    </div>
+                    <div class="cart-item-details">
+                        <p class="cart-item-title">Pantalón de pana blanco</p>
+                        <span class="cart-item-price">31 €</span>
+                    </div>
+                    <div class="cart-item-actions">
+                        <div class="qty-selector" aria-label="Cantidad">
+                            <span style="font-size: 12px; font-weight: bold;">Quantity:</span>
+                            <div style="display: flex; gap: 5px; align-items: center;">
+                                <button aria-label="Reducir cantidad">-</button>
+                                <span aria-live="polite">1</span>
+                                <button aria-label="Aumentar cantidad">+</button>
+                            </div>
+                        </div>
+                        <span class="remove-link" role="button" tabindex="0" aria-label="Eliminar pantalón de pana blanco del carrito">Remove</span>
+                    </div>
+                </div>
+
+                <div class="cart-item" role="listitem">
+                    <div class="cart-item-img">
+                        <img src="imagenes/pantalon2.jpg" alt="Pantalón azul">
+                    </div>
+                    <div class="cart-item-details">
+                        <p class="cart-item-title">Pantalón Azul</p>
+                        <span class="cart-item-price">31 €</span>
+                    </div>
+                    <div class="cart-item-actions">
+                        <div class="qty-selector" aria-label="Cantidad">
+                            <span style="font-size: 12px; font-weight: bold;">Quantity:</span>
+                            <div style="display: flex; gap: 5px; align-items: center;">
+                                <button aria-label="Reducir cantidad">-</button>
+                                <span aria-live="polite">1</span>
+                                <button aria-label="Aumentar cantidad">+</button>
+                            </div>
+                        </div>
+                        <span class="remove-link" role="button" tabindex="0" aria-label="Eliminar pantalón azul del carrito">Remove</span>
+                    </div>
+                </div>
+
+            </div>
+
+            <div style="margin-top: 20px; font-size: 12px;">
+                <div class="form-check mb-2">
+                    <input class="form-check-input" type="checkbox" id="chkGift">
+                    <label class="form-check-label" for="chkGift">Buying as a Gift? Tick here to include gift wrapping.</label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" id="chkNewsletter">
+                    <label class="form-check-label" for="chkNewsletter">Do you want to subscribe to our newsletter?</label>
+                </div>
+            </div>
+
+            <div class="cart-footer">
+                <p class="cart-total">Total: <span aria-live="polite">62.00 €</span></p>
+                <div style="display: flex; align-items: center; gap: 20px; flex-wrap: wrap;">
+                    <span style="font-size: 12px; color: #666; cursor: pointer;">Continue with payment</span>
+                    <button class="btn-checkout" aria-label="Ir al pago">Payment</button>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <div id="footer-container"></div>
+
+    <script>
+        $(document).ready(function() {
+            $("#header-container").load("fragments/header.html", function() {
+                $(document).on('click', '#menuToggle', function() {
+                    var expanded = $(this).attr('aria-expanded') === 'true';
+                    $(this).toggleClass('open').attr('aria-expanded', !expanded);
+                    $('#mega-menu').toggleClass('active').attr('aria-hidden', expanded);
+                });
+                $(document).on('click keypress', '.cat-item', function(e) {
+                    if (e.type === 'click' || e.which === 13) {
+                        $('.cat-item').removeClass('active-cat').attr('aria-selected', 'false');
+                        $(this).addClass('active-cat').attr('aria-selected', 'true');
+                        var targetList = $(this).data('target');
+                        $('.sub-list').removeClass('active-list');
+                        $('#' + targetList).hide().addClass('active-list').fadeIn(200);
+                    }
+                });
+            });
+            $("#footer-container").load("fragments/footer.html");
+        });
+    </script>
+</body>
+</html>
